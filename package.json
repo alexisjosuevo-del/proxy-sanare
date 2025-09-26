@@ -1,0 +1,10 @@
+{
+  "name": "proxy-sanare",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-basic-auth": "^1.2.1",
+    "node-fetch": "^2.6.7"
+  }
+}
