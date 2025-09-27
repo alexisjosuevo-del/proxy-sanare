@@ -1,7 +1,6 @@
 const express = require("express");
 const basicAuth = require("express-basic-auth");
 const fetch = require("node-fetch");
-const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,38 +12,28 @@ app.use(basicAuth({
   unauthorizedResponse: () => "Credenciales inválidas. Intenta de nuevo."
 }));
 
-// 🚫 Forzar siempre login (no cache)
+// 🚫 Forzar que siempre se pida login (no guardar en caché)
 app.use((req, res, next) => {
   res.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   res.set("Pragma", "no-cache");
   res.set("Expires", "0");
+  res.set("Surrogate-Control", "no-store");
   next();
 });
 
-// Función para asignar Content-Type según extensión
-function getContentType(file) {
-  const ext = path.extname(file).toLowerCase();
-  switch (ext) {
-    case ".css": return "text/css";
-    case ".js": return "application/javascript";
-    case ".png": return "image/png";
-    case ".jpg":
-    case ".jpeg": return "image/jpeg";
-    case ".gif": return "image/gif";
-    case ".svg": return "image/svg+xml";
-    case ".json": return "application/json";
-    default: return "text/html";
-  }
-}
-
-// Ruta principal → index.html
+// Ruta principal → index.html reescrito con rutas absolutas
 app.get("/", async (req, res) => {
   const url = "https://alexisjosuevo-del.github.io/Cotizador-Sanare1.1/index.html";
 
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error("No se encontró el index.html");
-    const data = await response.text();
+    let data = await response.text();
+
+    // Reemplazar rutas relativas por absolutas a GitHub Pages
+    data = data.replace(/href="(?!http)([^"]+)"/g, 'href="https://alexisjosuevo-del.github.io/Cotizador-Sanare1.1/$1"');
+    data = data.replace(/src="(?!http)([^"]+)"/g, 'src="https://alexisjosuevo-del.github.io/Cotizador-Sanare1.1/$1"');
+
     res.set("Content-Type", "text/html");
     res.send(data);
   } catch (err) {
@@ -52,7 +41,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-// Rutas genéricas (css, js, imágenes, etc.)
+// Para cualquier otro archivo (ej: /app.js, /styles.css, etc.)
 app.get("/:file", async (req, res) => {
   const file = req.params.file;
   const url = `https://alexisjosuevo-del.github.io/Cotizador-Sanare1.1/${file}`;
@@ -62,7 +51,6 @@ app.get("/:file", async (req, res) => {
     if (!response.ok) throw new Error("No se encontró el archivo");
 
     const buffer = await response.buffer();
-    res.set("Content-Type", getContentType(file));
     res.send(buffer);
 
   } catch (err) {
