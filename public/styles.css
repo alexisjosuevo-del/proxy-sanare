@@ -1,0 +1,37 @@
+*{box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;background:#faf7f5;color:#2d2a29;margin:0}
+main{max-width:980px;margin:20px auto;background:#fff;padding:20px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.header{display:flex;gap:16px;border-bottom:2px solid #e6ddd8;padding-bottom:12px;margin-bottom:16px}
+.logo{height:80px}
+.empresa h1{margin:6px 0 8px 0;font-size:22px;color:#7a6158;letter-spacing:.5px}
+.empresa label{font-size:12px;color:#6f6a67}
+.empresa select{width:100%;padding:8px;border:1px solid #d8cdc7;border-radius:10px;background:#fffaf8}
+.tel{margin-top:6px;font-size:12px;color:#7a6158}
+.datos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0 18px}
+.datos .full{grid-column:1/-1}
+.datos input,.datos textarea,select{width:100%;padding:10px;border:1px solid #d8cdc7;border-radius:10px;background:#fffaf8}
+h2{margin:16px 0 8px;color:#7a6158}
+.fila{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+button{background:#7a6158;color:#fff;border:none;padding:10px 14px;border-radius:10px;cursor:pointer}
+button:hover{opacity:.9}
+table{width:100%;border-collapse:collapse;background:#fffbf9;border-radius:12px;overflow:hidden}
+th,td{border:1px solid #eadfd9;padding:8px;text-align:center}
+.totales .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}
+.totales .grid>div{background:#fff7f3;border:1px solid #eadfd9;border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center}
+.totales .total{grid-column:3/4;background:#e9d9d2}
+
+#buscarMed { flex:1; padding:8px; border:1px solid #d8cdc7; border-radius:8px; }
+#ordenMed { padding:8px; border:1px solid #d8cdc7; border-radius:8px; }
+
+.extras { margin-left:20px; display:flex; flex-direction:column; gap:6px; font-size:14px; }
+.extras label { font-weight:bold; margin-top:4px; }
+.extras input { padding:4px; border:1px solid #ccc; border-radius:6px; }
+
+
+.disclaimer {
+  font-size: 10px;
+  color: #6b7280;
+  text-align: center;
+  margin: 12px 0;
+  line-height: 1.3;
+}
