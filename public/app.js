@@ -64,7 +64,7 @@ function init(){
   $('#btnPDF').addEventListener('click', toPDF);
   $('#selServicio').addEventListener('change', e=>{
     const s = JSON.parse(e.target.value);
-    if((s.servicio||'').toUpperCase().includes('SILLON DE INFUSIÓN - DERECHO DE SALA')){
+    if((s.servicio||'').toUpperCase().includes('INSUMOS Y SERVICIO DE INFUSIÓN')){
       $('#descServ').value = 50;
     } else {
     }
